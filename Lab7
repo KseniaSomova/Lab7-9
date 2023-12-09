@@ -8,7 +8,7 @@ static void DrinkInfo(Drink drink)
 static void Main()
 {
     DrinkInfo(new Water("Сенежская", 35, 0.6));
-    DrinkInfo(new Tea("Кавказские травы", 150, "Зеленый"));
+    DrinkInfo(new Coffee("Латте", 150, "на овсяном молоке"));
 }
 
 public abstract class Drink
@@ -39,10 +39,10 @@ class Water : Drink
     }
 }
 
-class Tea : Drink
+class Coffee : Drink
 {
     private string type;
-    public Tea(string _name, double _price, string _type)
+    public Coffee(string _name, double _price, string _type)
     {
         name = _name;
         price = _price;
@@ -51,6 +51,6 @@ class Tea : Drink
     public override void Sale()
     {
         base.Sale();
-        Console.WriteLine($"Вид чая: {type}");
+        Console.WriteLine($"Вид кофе: {type}");
     }
 }
