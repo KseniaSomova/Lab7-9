@@ -1,0 +1,60 @@
+class Programm
+{
+
+    static void DrinkInfo(Drink drink)
+    {
+        Console.WriteLine($"{drink.Name} price: ${drink.Price}");
+        drink.Sale();
+
+    }
+
+    static void Main()
+    {
+        DrinkInfo(new Water("Сенежская", 35, 0.6));
+        DrinkInfo(new Coffee("Латте", 150, "на овсяном молоке"));
+    }
+
+    public abstract class Drink
+    {
+        public string name;
+        public double price;
+        public string Name => name;
+        public double Price => price;
+        public virtual void Sale()
+        {
+            Console.WriteLine($"{name} стоит {price} руб.");
+        }
+    }
+
+    class Water : Drink
+    {
+        private double vitamins;
+        public Water(string _name, double _price, double _vitamins)
+        {
+            name = _name;
+            price = _price;
+            vitamins = _vitamins;
+        }
+        public override void Sale()
+        {
+            base.Sale();
+            Console.WriteLine($"Общая минерализация: {vitamins} г/л");
+        }
+    }
+
+    class Coffee : Drink
+    {
+        private string type;
+        public Coffee(string _name, double _price, string _type)
+        {
+            name = _name;
+            price = _price;
+            type = _type;
+        }
+        public override void Sale()
+        {
+            base.Sale();
+            Console.WriteLine($"Вид кофе: {type}");
+        }
+    }
+}
