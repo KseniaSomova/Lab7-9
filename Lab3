@@ -1,0 +1,94 @@
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json;
+class HelloWorld
+{
+
+    class Student
+    {
+        private string name = "undefind", surname = "undefind";
+        private int age = 0;
+        private double averageScore = 0;
+
+        public string Name
+        {
+            get { return name; }
+            set { this.name = value; }
+        }
+
+        public string Surname
+        {
+            get { return surname; }
+            set { this.surname = value; }
+
+        }
+        public int Age
+        {
+            get { return age; }
+            set { this.age = value; }
+        }
+        public double AverS
+        {
+            get { return averageScore; }
+            set { this.averageScore = value; }
+        }
+    }
+
+    class University
+    {
+        private List<Student> studentList;
+
+        public University()
+        {
+            studentList = new List<Student>();
+        }
+
+        public void AddStudent(ref Student student)
+        {
+            studentList.Add(student);
+        }
+
+        public void RemoveStudent(ref Student student)
+        {
+            studentList.Remove(student);
+        }
+
+        public void FindStundent(ref Student student)
+        {
+            foreach (var s in studentList)
+            {
+                if (s == student) Console.WriteLine("{0} + {1}", student.Name, student.Age);
+            }
+
+        }
+    } 
+
+static void Main()
+    {
+        Student p = new Student();
+        University u = new University();
+        u.AddStudent(ref p);
+        u.FindStundent(ref p);
+    }
+}
+namespace DataAccess
+{
+    public class StudentsRepository
+    {
+        private const string filePath = ("D:\\VS rep\\students\\students.txt");
+
+        public void AddStudent(Student student)
+        {
+            File.WriteAllText(filePath, JsonSerializer.Serialize(student));
+        }
+
+        public Student[] GetStudents()
+        {
+            string[] studentsJson = File.ReadAllLines(filePath);
+            Student[] students = JsonSerializer.Deserialize<Student[]>(studentsJson.Select(j => j.Trim()).ToArray());
+            return students;
+        }
+    }
+}
